@@ -4,7 +4,7 @@ const path = require("path");
 const p = path.join(
   path.dirname(require.main.filename),
   "data",
-  "products.json"
+  "products.json",
 );
 
 const getProductsFromFile = (cb) => {
@@ -30,7 +30,7 @@ module.exports = class Product {
     getProductsFromFile((products) => {
       if (this.id) {
         const existingProductIndex = products.findIndex(
-          (prod) => prod.id === this.id
+          (prod) => prod.id === this.id,
         );
         const updatedProducts = [...products];
         updatedProducts[existingProductIndex] = this;
@@ -44,6 +44,15 @@ module.exports = class Product {
           console.log(err);
         });
       }
+    });
+  }
+
+  static deleteById(id) {
+    getProductsFromFile((products) => {
+      const updatedProducts = products.filter((prod) => prod.id !== id);
+      fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
+        console.log(err);
+      });
     });
   }
 

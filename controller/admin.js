@@ -69,7 +69,7 @@ exports.postEditProducts = (req, res, next) => {
     updatedTitle,
     updatedImageUrl,
     updatedPrice,
-    updatedDescription
+    updatedDescription,
   );
   updatedData.save();
   res.redirect("/add-product-list");
@@ -89,4 +89,8 @@ exports.getProducts = (req, res, next) => {
       path: "/admin/add-product-list",
     });
   });
+};
+
+exports.postDeleteProducts = (req, res, next) => {
+  const prodId = req.body.productId;
 };
